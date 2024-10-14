@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
 
-const Projects = () => {
+function Projects() {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        fetch('/projects')
+        fetch('http://127.0.0.1:8000/projetos')
             .then(response => response.json())
             .then(data => setProjects(data));
     }, []);
 
     return (
-        <div className="projects">
-            <h2>Últimos Projetos</h2>
-            <div className="project-list">
+        <div>
+            <h2>Meus Projetos</h2>
+            <ul>
                 {projects.map((project, index) => (
-                    <div key={index} className="project-card">
-                        <img src={project.image_url} alt={project.title} />
-                        <h3>{project.title}</h3>
-                        <p>{project.description}</p>
-                    </div>
+                    <li key={index}>
+                        <strong>{project.titulo}</strong>: {project.descricao}
+                    </li>
                 ))}
-            </div>
+            </ul>
         </div>
     );
-};
+}
 
 export default Projects;
+

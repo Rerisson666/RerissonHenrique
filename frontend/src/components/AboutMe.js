@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const AboutMe = () => {
+function AboutMe() {
+    const [about, setAbout] = useState({});
+
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/sobre')
+            .then(response => response.json())
+            .then(data => setAbout(data));
+    }, []);
+
     return (
-        <div className="about-me">
-            <h2>Sobre mim</h2>
-            <img src="/path/to/profile.jpg" alt="Profile" />
-            <p>Desenvolvedor focado em React, Next.js, e TypeScript.</p>
-            <ul>
-                <li>React</li>
-                <li>Next.js</li>
-                <li>TypeScript</li>
-                <li>CSS</li>
-            </ul>
+        <div>
+            <h2>Sobre Mim</h2>
+            <p>Nome: {about.nome}</p>
+            <p>Profissão: {about.profissao}</p>
+            <p>Skills: {about.skills && about.skills.join(', ')}</p>
         </div>
     );
-};
+}
 
 export default AboutMe;
